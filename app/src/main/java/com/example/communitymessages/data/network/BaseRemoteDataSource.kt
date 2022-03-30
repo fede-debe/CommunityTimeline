@@ -1,4 +1,4 @@
-package com.example.communitymessages.data
+package com.example.communitymessages.data.network
 
 import com.example.communitymessages.domain.model.response.ErrorResponse
 import com.example.communitymessages.domain.model.response.Resource

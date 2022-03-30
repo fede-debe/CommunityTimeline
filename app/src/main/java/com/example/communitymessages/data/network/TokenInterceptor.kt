@@ -1,4 +1,4 @@
-package com.example.communitymessages.data
+package com.example.communitymessages.data.network
 
 import okhttp3.Interceptor
 import okhttp3.Response
