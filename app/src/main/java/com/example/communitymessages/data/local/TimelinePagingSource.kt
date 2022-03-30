@@ -1,7 +1,8 @@
-package com.example.communitymessages.data
+package com.example.communitymessages.data.local
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.communitymessages.data.network.ContentService
 import com.example.communitymessages.domain.model.response.TimelineResponse
 import com.example.communitymessages.utils.DEFAULT_PAGE_LIMIT
 import retrofit2.HttpException
@@ -14,6 +15,7 @@ class TimelinePagingSource @Inject constructor(
     private val contentService: ContentService,
     private val msgId: String
 ) : PagingSource<Int, TimelineResponse>() {
+
     override fun getRefreshKey(state: PagingState<Int, TimelineResponse>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)

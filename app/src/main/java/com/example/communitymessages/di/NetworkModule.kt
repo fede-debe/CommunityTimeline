@@ -1,7 +1,7 @@
 package com.example.communitymessages.di
 
-import com.example.communitymessages.data.ContentService
-import com.example.communitymessages.data.TokenInterceptor
+import com.example.communitymessages.data.network.ContentService
+import com.example.communitymessages.data.network.TokenInterceptor
 import com.example.communitymessages.utils.ACCESS_TOKEN
 import com.example.communitymessages.utils.BASE_URL
 import com.squareup.moshi.Moshi
