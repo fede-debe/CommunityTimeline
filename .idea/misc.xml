@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.28055555555555556" />
+        <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_heart_outlined.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_heart_svgrepo_com.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_heart_svgrepo_com__1_.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_loading_spinner.xml" value="0.1435" />
+        <entry key="app/src/main/res/drawable/ic_network_error.xml" value="0.1435" />
+        <entry key="app/src/main/res/drawable/selector_preference.xml" value="0.1385" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.36869842529296876" />
+        <entry key="app/src/main/res/layout/fragment_message_details.xml" value="0.3487261146496815" />
+        <entry key="app/src/main/res/layout/item_view_message.xml" value="0.359026369168357" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
