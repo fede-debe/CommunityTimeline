@@ -1,13 +1,19 @@
 package com.example.communitymessages.presentation.ui.home
 
-import androidx.lifecycle.*
-import androidx.paging.cachedIn
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.map
 import com.example.communitymessages.domain.model.asUiModel
 import com.example.communitymessages.domain.model.local.Message
 import com.example.communitymessages.domain.repository.ContentRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+@OptIn(ExperimentalPagingApi::class)
+@HiltViewModel
 class HomeViewModel @Inject constructor(
     contentRepository: ContentRepository
 ) : ViewModel() {
@@ -24,18 +30,8 @@ class HomeViewModel @Inject constructor(
     private val _navigateToMessageDetails = MutableLiveData<Message?>()
     val navigateToMessageDetails: LiveData<Message?> = _navigateToMessageDetails
 
-    private val currentId: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-
-    val timeline = currentId.switchMap { id ->
-        contentRepository.getTimeline(id).map { timelineResponse ->
-            timelineResponse.map { it.asUiModel() }
-        }.cachedIn(viewModelScope)
-    }
-
-    fun getId(id: String) {
-        currentId.value = id
+    val getTimeline = contentRepository.getTimeline().map { pagingData ->
+        pagingData.map { it.asUiModel() }
     }
 
     fun openMessageDetails(message: Message) {

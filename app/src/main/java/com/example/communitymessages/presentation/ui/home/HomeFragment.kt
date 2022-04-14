@@ -5,26 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.communitymessages.MyApplication
+import androidx.paging.ExperimentalPagingApi
 import com.example.communitymessages.R
 import com.example.communitymessages.databinding.FragmentHomeBinding
 import com.example.communitymessages.presentation.adapter.CommunityMessageAdapter
-import com.example.communitymessages.utils.COMMUNITY_ID
 import com.example.communitymessages.utils.showSnackBar
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val adapter =
+    private val adapter by lazy {
         CommunityMessageAdapter(CommunityMessageAdapter.OnClickListener { message ->
             viewModel.openMessageDetails(message)
         })
+    }
 
-    @Inject
-    lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +35,22 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        (requireContext().applicationContext as MyApplication).appComponent.injectTimeline(this)
         return binding.root
     }
 
+    @OptIn(ExperimentalPagingApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapters()
         setObservers()
-        viewModel.getId(COMMUNITY_ID)
+        setListeners()
     }
 
     private fun setObservers() {
-        lifecycleScope.launchWhenResumed {
-            viewModel.timeline.observe(viewLifecycleOwner) {
-                adapter.submitData(viewLifecycleOwner.lifecycle, it)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getTimeline.collectLatest { timeline ->
+                adapter.submitData(timeline)
             }
         }
 
@@ -83,5 +87,16 @@ class HomeFragment : Fragment() {
 
     private fun setAdapters() {
         binding.rvListMessages.adapter = adapter
+    }
+
+    private fun setListeners() {
+        binding.refreshLayout.setOnRefreshListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.getTimeline.collectLatest { timeline ->
+                    adapter.submitData(timeline)
+                }
+            }
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 }
