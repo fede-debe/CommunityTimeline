@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
 import com.example.communitymessages.domain.model.response.Resource.Status.*
 import com.example.communitymessages.domain.repository.ContentRepository
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalPagingApi
+@HiltViewModel
 class MessageViewModel @Inject constructor(
     private val contentRepository: ContentRepository
 ) : ViewModel() {

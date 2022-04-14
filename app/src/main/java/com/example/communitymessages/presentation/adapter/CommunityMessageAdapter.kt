@@ -31,11 +31,6 @@ class CommunityMessageAdapter(private val onClickListener: OnClickListener) :
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-//        val message = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(message)
-//        }
-//        holder.bind(message)
         getItem(position)?.let { message ->
         holder.itemView.setOnClickListener {
             onClickListener.onClick(message)

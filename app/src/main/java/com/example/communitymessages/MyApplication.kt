@@ -1,9 +1,7 @@
 package com.example.communitymessages
 
 import android.app.Application
-import com.example.communitymessages.di.AppComponent
-import com.example.communitymessages.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication : Application() {
-    val appComponent: AppComponent = DaggerAppComponent.create()
-}
+@HiltAndroidApp
+class MyApplication : Application()

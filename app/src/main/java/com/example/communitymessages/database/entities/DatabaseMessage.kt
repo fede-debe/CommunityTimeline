@@ -1,11 +1,12 @@
-package com.example.communitymessages.database
+package com.example.communitymessages.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.communitymessages.domain.model.local.Attachment
+import com.example.communitymessages.utils.DATABASE_NAME
 
-@Entity(tableName = "timeline")
-data class DatabaseMessage constructor(
+@Entity(tableName = DATABASE_NAME)
+data class DatabaseMessage(
     @PrimaryKey
     val id: String,
     val content: String,

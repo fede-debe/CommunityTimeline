@@ -10,7 +10,10 @@ import retrofit2.http.Query
 interface ContentService {
 
     @GET("companies/{id}/timeline")
-    suspend fun getTimeline(@Path("id") id: String, @Query("page") page: Int, @Query("count") count: Int): Response<List<TimelineResponse>>
+    suspend fun getTimeline(
+        @Path("id") id: String,
+        @Query("page") page: String?
+    ): Response<List<TimelineResponse>>
 
     @PUT("messages/{msg_id}/interested")
     suspend fun addToInterest(
