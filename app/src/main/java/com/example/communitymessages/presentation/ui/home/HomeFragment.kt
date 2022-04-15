@@ -47,12 +47,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setObservers() {
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getTimeline.collectLatest { timeline ->
-                adapter.submitData(timeline)
-            }
-        }
+        updateTimeline()
 
         viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             if (loading == true) {
@@ -91,12 +86,16 @@ class HomeFragment : Fragment() {
 
     private fun setListeners() {
         binding.refreshLayout.setOnRefreshListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getTimeline.collectLatest { timeline ->
-                    adapter.submitData(timeline)
-                }
-            }
+            updateTimeline()
             binding.refreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun updateTimeline() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getTimeline.collectLatest { timeline ->
+                adapter.submitData(timeline)
+            }
         }
     }
 }
