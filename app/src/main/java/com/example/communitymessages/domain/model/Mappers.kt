@@ -35,3 +35,24 @@ fun TimelineResponse.asDatabaseModel() = DatabaseMessage(
         )
     }
 )
+
+
+fun List<TimelineResponse>.asDatabaseModel(): Array<DatabaseMessage> {
+    return map { timelineResponse ->
+        DatabaseMessage(
+            id = timelineResponse.id,
+            title = timelineResponse.title,
+            content = timelineResponse.content,
+            score = timelineResponse.score,
+            attachments = timelineResponse.attachments.map {
+                Attachment(
+                    it.id,
+                    it.mimeType,
+                    it.name,
+                    it.size,
+                    it.url
+                )
+            }
+        )
+    }.toTypedArray()
+}

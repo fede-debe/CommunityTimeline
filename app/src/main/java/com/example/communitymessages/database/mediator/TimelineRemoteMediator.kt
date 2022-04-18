@@ -48,16 +48,13 @@ class TimelineRemoteMediator(
                 id = COMMUNITY_ID,
                 page = loadKey
             ).let { response ->
-                response.body()?.map { it.asDatabaseModel() }
+                response.map { it.asDatabaseModel() }
             }
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     timelineDao.deleteTimeline()
                 }
-                if (response != null) {
-                    timeline = response
-                    timelineDao.insertTimeline(timeline)
-                }
+                timelineDao.insertTimeline(*response.toTypedArray())
             }
             MediatorResult.Success(
                 endOfPaginationReached = timeline.isEmpty()

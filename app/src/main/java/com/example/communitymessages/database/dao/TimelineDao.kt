@@ -11,7 +11,7 @@ import com.example.communitymessages.database.entities.DatabaseMessage
 interface TimelineDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTimeline(list: List<DatabaseMessage>)
+    suspend fun insertTimeline(vararg timeline: DatabaseMessage)
 
     @Query("SELECT * FROM timeline ORDER BY score ASC")
     fun pagingSource(): PagingSource<Int, DatabaseMessage>
