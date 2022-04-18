@@ -8,3 +8,4 @@ const val DEFAULT_PAGE_LIMIT = 10
 const val STARTING_PAGE_INDEX = 1
 const val DATABASE_NAME = "timeline"
 const val DATABASE_REMOTE_KEYS = "remote_keys"
+const val WORK_NAME = "RefreshDataWorker"

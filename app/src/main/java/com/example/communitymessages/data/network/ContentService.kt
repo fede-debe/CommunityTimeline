@@ -13,7 +13,7 @@ interface ContentService {
     suspend fun getTimeline(
         @Path("id") id: String,
         @Query("page") page: String?
-    ): Response<List<TimelineResponse>>
+    ): List<TimelineResponse>
 
     @PUT("messages/{msg_id}/interested")
     suspend fun addToInterest(
